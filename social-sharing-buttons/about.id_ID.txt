@@ -1,0 +1,16 @@
+Title: Tombol Berbagi Sosial
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> Widget tombol berbagi sosial.
+
+Sisipkan tombol-tombol berbagi sosial yang paling umum digunakan pada artikel dan halaman statis Anda.
+
+### Penggunaan
+
+~~~ .php
+<?php echo Widget::shareButtons(); ?>
+~~~

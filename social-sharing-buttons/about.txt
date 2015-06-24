@@ -1,0 +1,16 @@
+Title: Social Sharing Buttons
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> Social sharing buttons widget.
+
+Insert common social sharing buttons in your article and page footer.
+
+### Usage
+
+~~~ .php
+<?php echo Widget::shareButtons(); ?>
+~~~

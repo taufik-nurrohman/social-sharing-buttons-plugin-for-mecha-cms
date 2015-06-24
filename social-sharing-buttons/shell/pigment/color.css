@@ -1,0 +1,30 @@
+.share-button,
+.share-button:focus,
+.share-button:hover,
+.share-button:active {
+  border-color:transparent;
+  color:white;
+}
+
+.share-button-facebook,
+.share-button-facebook:focus,
+.share-button-facebook:hover {background-color:#4C66A3}
+.share-button-twitter,
+.share-button-twitter:focus,
+.share-button-twitter:hover {background-color:#24A7DF}
+.share-button-google-plus,
+.share-button-google-plus:focus,
+.share-button-google-plus:hover {background-color:#D74835}
+.share-button-pinterest,
+.share-button-pinterest:focus,
+.share-button-pinterest:hover {background-color:#C62224}
+.share-button-linkedin,
+.share-button-linkedin:focus,
+.share-button-linkedin:hover {background-color:#0077B5}
+
+/* button opacity = .85, wrapper background color = black */
+.share-button-facebook:active {background-color:#41578B}
+.share-button-twitter:active {background-color:#1F8EBE}
+.share-button-google-plus:active {background-color:#B73D2D}
+.share-button-pinterest:active {background-color:#A81D1F}
+.share-button-linkedin:active {background-color:#00659A}

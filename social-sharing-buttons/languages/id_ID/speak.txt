@@ -1,0 +1,5 @@
+plugin_ssb_title_skin: Tema
+plugin_ssb_title_inject: Sisipkan Widget
+plugin_ssb_title_counter: Tampilkan Penghitung (lebih lambat)
+
+plugin_ssb_description_inject: Salin kode widget di bawah ini dan tempel ke berkas <code>article.php</code> atau <code>page.php</code> Anda:

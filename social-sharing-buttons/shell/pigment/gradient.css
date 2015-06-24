@@ -1,0 +1,39 @@
+.share-button {
+  position:relative;
+  border-width:0;
+  color:white;
+  text-shadow:0 -1px 0 rgba(0,0,0,.1);
+  background-image:-webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.15));
+  background-image:-moz-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.15));
+  background-image:-ms-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.15));
+  background-image:-o-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.15));
+  background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.15));
+  -webkit-box-shadow:0 2px 2px rgba(0,0,0,.4);
+  -moz-box-shadow:0 2px 2px rgba(0,0,0,.4);
+  box-shadow:0 2px 2px rgba(0,0,0,.4);
+}
+
+.share-button:focus,
+.share-button:hover,
+.share-button:active {
+  color:white;
+  background-image:-webkit-linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.2));
+  background-image:-moz-linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.2));
+  background-image:-ms-linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.2));
+  background-image:-o-linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.2));
+  background-image:linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.2));
+}
+
+.share-button:active {
+  top:1px;
+  color:white;
+  -webkit-box-shadow:0 1px 2px rgba(0,0,0,.4);
+  -moz-box-shadow:0 1px 2px rgba(0,0,0,.4);
+  box-shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+.share-button-facebook {background-color:#4C66A3}
+.share-button-twitter {background-color:#24A7DF}
+.share-button-google-plus {background-color:#D74835}
+.share-button-pinterest {background-color:#C62224}
+.share-button-linkedin {background-color:#0077B5}

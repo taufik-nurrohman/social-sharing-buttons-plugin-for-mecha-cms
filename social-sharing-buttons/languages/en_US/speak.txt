@@ -1,0 +1,5 @@
+plugin_ssb_title_skin: Skin
+plugin_ssb_title_inject: Add Widget
+plugin_ssb_title_counter: Show Counter (slower)
+
+plugin_ssb_description_inject: Copy the widget code below and paste it in your <code>article.php</code> or <code>page.php</code> file:

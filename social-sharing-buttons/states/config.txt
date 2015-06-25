@@ -1,1 +1,1 @@
-a:3:{s:4:"skin";s:2:"__";s:6:"inject";b:1;s:7:"content";s:0:"";}
+a:2:{s:4:"skin";s:2:"__";s:6:"inject";b:1;}

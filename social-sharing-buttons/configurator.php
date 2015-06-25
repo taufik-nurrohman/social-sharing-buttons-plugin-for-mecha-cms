@@ -12,6 +12,10 @@
 
   ?>
   <div class="grid-group">
+    <span class="grid span-1 form-label"></span>
+    <span class="grid span-5" title="<?php echo $speak->preview; ?>"><?php echo Widget::shareButtons(); ?></span>
+  </div>
+  <div class="grid-group">
     <span class="grid span-1 form-label"><?php echo $speak->plugin_ssb_title_skin; ?></span>
     <span class="grid span-5"><?php echo Form::select('skin', $options, $ssb_config['skin']); ?></span>
   </div>

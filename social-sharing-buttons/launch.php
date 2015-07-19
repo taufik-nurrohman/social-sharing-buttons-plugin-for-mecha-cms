@@ -28,9 +28,23 @@ Widget::add('shareButtons', function() use($config, $ssb_config, $ssb_button) {
     }
     Session::set('cookie:share_button_cargo', array($url, $title, $description, $image));
     $html = '<span class="share-button-group">';
+    $cache_path = CACHE . DS . 'plugin-' . File::B(__DIR__) . DS . md5($url) . '.cache';
+    $counters = File::open($cache_path)->unserialize(array());
     foreach($ssb_button as $key => $value) {
-        $the_count = isset($ssb_config['counter']) ? ' <b>' . (isset($value['counter']) && function_exists($value['counter']) ? call_user_func($value['counter'], $url) : 0) . '</b>' : "";
-        $html .= '<a class="share-button share-button-' . $key . '" href="' . $config->url . '/share/to:' . $key . '"' . (Asset::loaded($config->protocol . ICON_LIBRARY_PATH) && isset($value['icon']) ? ' data-icon="' . $value['icon'] . '"' : "") . '><span>' . $value['title'] . '</span>' . $the_count . '</a> ';
+        // no cache
+        if( ! isset($counters[$key])) {
+            $count = isset($value['counter']) && function_exists($value['counter']) ? call_user_func($value['counter'], $url) : 0;
+        // use cache
+        } else {
+            $count = $counters[$key];
+        }
+        $counters[$key] = $count;
+        $count = isset($ssb_config['counter']) ? ' <b>' . $count . '</b>' : "";
+        $html .= '<a class="share-button share-button-' . $key . '" href="' . $config->url . '/share/to:' . $key . '"' . (Asset::loaded($config->protocol . ICON_LIBRARY_PATH) && isset($value['icon']) ? ' data-icon="' . $value['icon'] . '"' : "") . '><span>' . $value['title'] . '</span>' . $count . '</a> ';
+    }
+    // create cache
+    if( ! File::exist($cache_path)) {
+        File::serialize($counters)->saveTo($cache_path, 0600);
     }
     return trim($html) . '</span>';
 });
@@ -65,5 +79,7 @@ Route::accept('share/to:(:any)', function($kind = "") use($config, $ssb_button) 
         Shield::abort();
     }
     $param = Session::get('cookie:share_button_cargo', array($config->url, $config->title, $config->slogan, $config->url . '/favicon.ico'));
+    // delete cache
+    File::open(CACHE . DS . 'plugin-' . File::B(__DIR__) . DS . md5($param[0]) . '.cache')->delete();
     Guardian::kick(sprintf($ssb_button[$kind]['url'], urlencode($param[0]), urlencode(strip_tags($param[1])), urlencode(strip_tags($param[2])), urlencode($param[3])));
 });

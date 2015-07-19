@@ -7,7 +7,7 @@ Version: 1.1.0
 
 > Social sharing buttons widget.
 
-Insert common social sharing buttons in your article and page footer.
+Insert common social sharing buttons on your article and page footer.
 
 ### Usage
 

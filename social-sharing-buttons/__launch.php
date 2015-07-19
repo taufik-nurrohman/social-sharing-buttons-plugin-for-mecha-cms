@@ -19,3 +19,9 @@ Route::accept($config->manager->slug . '/plugin/' . File::B(__DIR__) . '/update'
         Guardian::kick(File::D($config->url_current));
     }
 });
+
+
+// Remove cache on plugin destruct ...
+Weapon::add('on_plugin_' . md5(File::B(__DIR__)) . '_destruct', function() {
+    File::open(CACHE . DS . 'plugin-' . File::B(__DIR__))->delete();
+});

@@ -12,7 +12,9 @@
 .share-button {
   display:inherit;
   line-height:inherit;
+  white-space:nowrap;
   padding:0 .6em;
+  margin:0 0 .3076923076923077em;
   background:none;
   border:1px solid;
   -webkit-box-sizing:border-box;

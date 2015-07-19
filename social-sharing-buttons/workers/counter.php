@@ -1,8 +1,7 @@
 <?php
 
 // Facebook Shares/Likes
-function ssb_facebook($url, $output = 'share') {
-    $output = rtrim($output, 's') . 's';
+function ssb_facebook($url, $output = 'shares') {
     $count = json_decode(file_get_contents('http://graph.facebook.com/?id=' . $url), true);
     if(isset($count[$output]) && (int) $count[$output] !== 0) {
         return (int) $count[$output];
@@ -12,12 +11,12 @@ function ssb_facebook($url, $output = 'share') {
 
 // Facebook Shares
 function ssb_facebook_share($url) {
-    return ssb_facebook($url, 'share');
+    return ssb_facebook($url, 'shares');
 }
 
 // Facebook Likes
 function ssb_facebook_like($url) {
-    return ssb_facebook($url, 'like');
+    return ssb_facebook($url, 'likes');
 }
 
 // Twitter Shares

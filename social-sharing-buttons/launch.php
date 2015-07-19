@@ -1,12 +1,12 @@
 <?php
 
-$ssb_config = File::open(PLUGIN . DS . basename(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
+$ssb_config = File::open(PLUGIN . DS . File::B(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
 
 if(isset($ssb_config['counter'])) {
-    include PLUGIN . DS . basename(__DIR__) . DS . 'workers' . DS . 'counter.php';
+    include PLUGIN . DS . File::B(__DIR__) . DS . 'workers' . DS . 'counter.php';
 }
 
-$ssb_button = include PLUGIN . DS . basename(__DIR__) . DS . 'workers' . DS . 'button.php';
+$ssb_button = include PLUGIN . DS . File::B(__DIR__) . DS . 'workers' . DS . 'button.php';
 
 // Create the widget
 Widget::add('shareButtons', function() use($config, $ssb_config, $ssb_button) {
@@ -26,18 +26,18 @@ Widget::add('shareButtons', function() use($config, $ssb_config, $ssb_button) {
         $description = $config->description;
         $image = $config->url . '/favicon.ico';
     }
+    Session::set('cookie:share_button_cargo', array($url, $title, $description, $image));
     $html = '<span class="share-button-group">';
     foreach($ssb_button as $key => $value) {
-        $the_url = sprintf($value['url'], urlencode($url), urlencode(strip_tags($title)), urlencode(strip_tags($description)), urlencode($image));
-        $the_count = isset($ssb_config['counter']) ? ' <b>' . (isset($value['counter']) && function_exists($value['counter']) ? call_user_func($value['counter'], $the_url) : 0) . '</b>' : "";
-        $html .= '<a class="share-button share-button-' . $key . '" href="' . $the_url . '"' . (Asset::loaded($config->protocol . ICON_LIBRARY_PATH) && isset($value['icon']) ? ' data-icon="' . $value['icon'] . '"' : "") . '>' . $value['title'] . $the_count . '</a> ';
+        $the_count = isset($ssb_config['counter']) ? ' <b>' . (isset($value['counter']) && function_exists($value['counter']) ? call_user_func($value['counter'], $url) : 0) . '</b>' : "";
+        $html .= '<a class="share-button share-button-' . $key . '" href="' . $config->url . '/share/to:' . $key . '"' . (Asset::loaded($config->protocol . ICON_LIBRARY_PATH) && isset($value['icon']) ? ' data-icon="' . $value['icon'] . '"' : "") . '><span>' . $value['title'] . '</span>' . $the_count . '</a> ';
     }
     return trim($html) . '</span>';
 });
 
 // Inject the CSS
 Weapon::add('shell_after', function() {
-    echo Asset::stylesheet('cabinet/plugins/' . basename(__DIR__) . '/shell/skin.min.css');
+    echo Asset::stylesheet('cabinet/plugins/' . File::B(__DIR__) . '/assets/shell/skin.min.css');
 });
 
 // Inject the widget to article footer
@@ -53,3 +53,17 @@ if($config->page_type === 'page' && isset($ssb_config['inject'])) {
         echo O_BEGIN . '<div class="share-button-group-outer">' . Widget::shareButtons() . '</div>' . O_END;
     });
 }
+
+
+/**
+ * Redirect to Sharing URL
+ * -----------------------
+ */
+
+Route::accept('share/to:(:any)', function($kind = "") use($config, $ssb_button) {
+    if( ! isset($ssb_button[$kind])) {
+        Shield::abort();
+    }
+    $param = Session::get('cookie:share_button_cargo', array($config->url, $config->title, $config->slogan, $config->url . '/favicon.ico'));
+    Guardian::kick(sprintf($ssb_button[$kind]['url'], urlencode($param[0]), urlencode(strip_tags($param[1])), urlencode(strip_tags($param[2])), urlencode($param[3])));
+});

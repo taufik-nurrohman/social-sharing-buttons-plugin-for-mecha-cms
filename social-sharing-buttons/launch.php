@@ -26,7 +26,7 @@ Widget::add('shareButtons', function() use($config, $ssb_config, $ssb_button) {
         $description = $config->description;
         $image = $config->url . '/favicon.ico';
     }
-    Session::set('cookie:share_button_cargo', array($url, $title, $description, $image));
+    Session::set('share_button_cargo', array($url, $title, $description, $image));
     $html = '<span class="share-button-group">';
     $cache_path = PLUGIN . DS . File::B(__DIR__) . DS . 'scraps' . DS . md5($url) . '.cache';
     $counters = File::open($cache_path)->unserialize(array());
@@ -78,7 +78,7 @@ Route::accept('share/to:(:any)', function($kind = "") use($config, $ssb_button) 
     if( ! isset($ssb_button[$kind])) {
         Shield::abort();
     }
-    $param = Session::get('cookie:share_button_cargo', array($config->url, $config->title, $config->slogan, $config->url . '/favicon.ico'));
+    $param = Session::get('share_button_cargo', array($config->url, $config->title, $config->slogan, $config->url . '/favicon.ico'));
     // delete cache
     File::open(PLUGIN . DS . File::B(__DIR__) . DS . 'scraps' . DS . md5($param[0]) . '.cache')->delete();
     Guardian::kick(sprintf($ssb_button[$kind]['url'], urlencode($param[0]), urlencode(strip_tags($param[1])), urlencode(strip_tags($param[2])), urlencode($param[3])));

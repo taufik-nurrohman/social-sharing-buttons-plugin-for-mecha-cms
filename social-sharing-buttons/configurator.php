@@ -2,12 +2,12 @@
   <?php echo Form::hidden('token', $token); ?>
   <?php
 
-  $ssb_config = File::open(PLUGIN . DS . File::B(__DIR__) . DS . 'states' . DS . 'config.txt')->unserialize();
+  $ssb_config = File::open(__DIR__ . DS . 'states' . DS . 'config.txt')->unserialize();
 
   $options = array('__' => $speak->none);
-  foreach(glob(PLUGIN . DS . File::B(__DIR__) . DS . 'assets' . DS . 'shell' . DS . 'pigment' . DS . '*.css', GLOB_NOSORT) as $skin) {
+  foreach(glob(__DIR__ . DS . 'assets' . DS . 'shell' . DS . 'pigment' . DS . '*.css', GLOB_NOSORT) as $skin) {
       $skin = File::N($skin);
-      $options[$skin] = ucwords(Text::parse($skin, '->text'));
+      $options[$skin] = Text::parse($skin, '->title');
   }
 
   ?>
@@ -22,12 +22,11 @@
   <div class="grid-group">
     <span class="grid span-1"></span>
     <div class="grid span-5">
-      <p>
-        <?php echo Form::checkbox('counter', 'true', isset($ssb_config['counter']), $speak->plugin_ssb_title_counter); ?>
-        <br>
-        <?php echo Form::checkbox('inject', 'true', isset($ssb_config['inject']), $speak->plugin_ssb_title_inject, array('id' => 'toggle-widget-code')); ?>
-      </p>
-      <div id="widget-code">
+      <div class="p">
+        <div><?php echo Form::checkbox('counter', 'true', isset($ssb_config['counter']), $speak->plugin_ssb_title_counter); ?></div>
+        <div><?php echo Form::checkbox('inject', 'true', isset($ssb_config['inject']), $speak->plugin_ssb_title_inject, array('id' => 'toggle-widget-code')); ?></div>
+      </div>
+      <div class="p" id="widget-code">
         <p><?php echo $speak->plugin_ssb_description_inject; ?></p>
         <pre><code class="php">&lt;?php echo Widget::shareButtons(); ?&gt;</code></pre>
       </div>
